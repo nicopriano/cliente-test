@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, useParams, useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import SearchResults from '../components/SearchResults';
 import Breadcrumb from '../components/Breadcrumb';
 import { Helmet } from 'react-helmet';
+import Axios from 'axios';
 
 export default function ItemsList (props) {
 
@@ -18,6 +19,14 @@ export default function ItemsList (props) {
       setItems(window.__ROUTE_DATA__.items);
       setCategories(window.__ROUTE_DATA__.categories);
       delete window.__ROUTE_DATA__;
+    } else if (props.staticContext && props.staticContext.data) {
+      setItems(props.staticContext.data.item);
+    } else {
+      Axios.get(`/items?search=${search}`).then(response => {
+        document.open();
+        document.write(response.data);
+        document.close();
+      })
     }
     
   }, []);

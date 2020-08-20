@@ -7,9 +7,9 @@ import ReactDOMServer from 'react-dom/server';
 
 import App from '../src/App';
 import { StaticRouter } from 'react-router-dom';
-import { getDataForContext } from './contextManager';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
+import { handleItemDetail, handleSearch } from './itemsManager';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -17,12 +17,16 @@ const app = express();
 app.use(express.static('server-build'));
 app.use(express.static('./build'));
 
+app.use('/items', handleSearch);
+app.use('/items/:id', handleItemDetail);
+
 app.get('/*', async (req, res) => {
 
   try {
-    console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', req.url, req.query);
 
-    const context = { data: await getDataForContext(req.url, req.query) };
+    const context = { data: req.meliContext };
+    const helmet = Helmet.renderStatic();
+    const indexFile = path.resolve('./build/index.html');
 
     const app = ReactDOMServer.renderToString(
       <StaticRouter location={req.url} context={context}>
@@ -30,9 +34,7 @@ app.get('/*', async (req, res) => {
       </StaticRouter>
     );
 
-    const helmet = Helmet.renderStatic();
-
-    const indexFile = path.resolve('./build/index.html');
+    
     fs.readFile(indexFile, 'utf8', (err, data) => {
       if (err) {
         console.error('Something went wrong:', err);

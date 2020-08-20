@@ -1,5 +1,7 @@
 .breadcrumbs {
-  display: inline;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 1rem;
   font-size: .75rem;
   font-weight: 400;
   color: $gray;

@@ -3,16 +3,26 @@ import { useParams } from 'react-router-dom';
 import ImageGallery from '../components/ImageGallery';
 import Breadcrumb from '../components/Breadcrumb';
 import { Helmet } from 'react-helmet';
+import Axios from 'axios';
 
-export default function ItemDetail() {
+export default function ItemDetail(props) {
 
   const [item, setItem] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
 
     if(window.__ROUTE_DATA__) {
       setItem(window.__ROUTE_DATA__.item)
       delete window.__ROUTE_DATA__;
+    } else if (props.staticContext && props.staticContext.data) {
+      setItem(props.staticContext.data.item);
+    } else {
+      Axios.get(`/items/${id}`).then(response => {
+        document.open();
+        document.write(response.data);
+        document.close();
+      })
     }
 
   }, [])

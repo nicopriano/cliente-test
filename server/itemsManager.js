@@ -1,8 +1,21 @@
 import Axios from 'axios';
 
-export const getItems = async query => {
+export const handleSearch = async (req, res, next) => {
 
-  const { data } = await Axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${query}`);
+  if(req.query.search) {
+    req.meliContext = await getItems(req.query.search);
+  }
+  next();
+}
+
+export const handleItemDetail = async (req, res, next) => {
+  req.meliContext = await getItemDetail(req.params.id)
+  next();
+}
+
+const getItems = async query => {
+
+  const { data } = await Axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${query}&limit=4`);
 
   return {
     author: {
@@ -34,7 +47,7 @@ export const getItems = async query => {
 
 };
 
-export const getItemDetail = id => {
+const getItemDetail = id => {
   return Axios.get(`https://api.mercadolibre.com/items/${id}`).then(({ data }) => {
     const currency_id = data.currency_id, category_id = data.category_id;
 
