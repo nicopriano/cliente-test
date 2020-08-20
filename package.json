@@ -23,10 +23,7 @@
     "eject": "react-scripts eject",
     "dev:build-server": "set NODE_ENV=development&& webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
-    "dev": "npm-run-all --parallel build dev:*",
-    "prd:build-server": "set NODE_ENV=production&& webpack -p --config webpack.server.js --mode=production -w",
-    "prd:start": "node ./server-build/index.js",
-    "prd": "npm-run-all --parallel build prd:*"
+    "dev": "npm-run-all --parallel build dev:*"
   },
   "eslintConfig": {
     "extends": "react-app"
