@@ -1,0 +1,42 @@
+.light {
+
+  .base-container {
+    background-color: $lgray;
+  }
+  
+  .search-bar-container {
+    background-color: $yellow;
+  }
+
+  .items-list {
+    background-color: $white;
+
+    .item-container {
+      &:hover {
+        background-color: rgba($lgray, 0.5);
+      }
+    }
+  }
+
+  .item-detail {
+    background-color: $white;
+
+    .buy-btn {
+      background-color: $blue;
+      color: white;
+
+      &:hover {
+        background-color: $dblue;
+      }
+
+      &:active {
+        background-color: $ddblue;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 0.1875em rgba(30,109,255,.3);
+        outline: none;
+      }
+    }
+  }
+}

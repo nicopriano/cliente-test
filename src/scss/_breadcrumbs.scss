@@ -1,0 +1,20 @@
+.breadcrumbs {
+  display: inline;
+  font-size: .75rem;
+  font-weight: 400;
+  color: $gray;
+  letter-spacing: .5px;
+
+  .go-back-button {
+    margin-right: .5rem;
+  }
+
+  .category {
+    margin-right: .5rem;
+
+    &:not(:last-child)::after {
+      content: '>';
+      margin-left: .5rem;
+    }
+  }
+}

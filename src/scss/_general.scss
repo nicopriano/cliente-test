@@ -1,0 +1,23 @@
+.base-container {
+  // width: 100vw;
+  min-height: 100vh;
+  padding-top: 3.5rem;
+  box-sizing: border-box;
+  display: flex;
+  overflow: auto;
+}
+
+:root {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif
+}
+
+::placeholder {
+  color: $gray;
+  opacity: .75;
+}
+
+body {
+  margin: 0;
+}
