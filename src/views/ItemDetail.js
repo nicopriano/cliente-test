@@ -4,6 +4,7 @@ import ImageGallery from '../components/ImageGallery';
 import Breadcrumb from '../components/Breadcrumb';
 import { Helmet } from 'react-helmet';
 import Axios from 'axios';
+import formatNumber from '../utils/NumberFormat';
 
 export default function ItemDetail() {
 
@@ -57,7 +58,7 @@ export default function ItemDetail() {
           <div className="item-info-wrapper">
             <p className="above-title">{item.condition === 'new' ? 'Nuevo' : 'Usado'} - {item.sold_quantity} vendidos</p>
             <h6 className="title">{item.title}</h6>
-            <h6 className="price">{item.price.currency} {item.price.amount}</h6>
+            <h6 className="price">{item.price.currency} {formatNumber(item.price.amount, item.price.decimals)}</h6>
 
             {
               !item.free_shipping ? null :

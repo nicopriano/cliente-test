@@ -1,4 +1,5 @@
 import React from 'react'
+import formatNumber from '../utils/NumberFormat'
 
 export default function SearchResults({ items, action, hasLoaded }) {
 
@@ -9,7 +10,7 @@ export default function SearchResults({ items, action, hasLoaded }) {
       </div>
     )
   }
-  
+
   return (
     <div className="items-list">
       {
@@ -20,7 +21,7 @@ export default function SearchResults({ items, action, hasLoaded }) {
               backgroundSize: 'cover',
             }}></aside>
             <article className="item-info">
-              <h3 className="precio">{el.price.currency} {el.price.amount}</h3>
+              <h3 className="precio">{el.price.currency} {formatNumber(el.price.amount, el.price.decimals)}</h3>
               <h6 className="lugar">{el.address}</h6>
               <h5 className="titulo">{el.title}</h5>
               {
