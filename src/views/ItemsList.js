@@ -5,11 +5,12 @@ import Breadcrumb from '../components/Breadcrumb';
 import { Helmet } from 'react-helmet';
 import Axios from 'axios';
 
-export default function ItemsList (props) {
+export default function ItemsList () {
 
   const [id, setId] = useState(null);
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const location = useLocation();
   const search = new URLSearchParams(location.search).get('search');
 
@@ -19,8 +20,7 @@ export default function ItemsList (props) {
       setItems(window.__ROUTE_DATA__.items);
       setCategories(window.__ROUTE_DATA__.categories);
       delete window.__ROUTE_DATA__;
-    } else if (props.staticContext && props.staticContext.data) {
-      setItems(props.staticContext.data.item);
+      setHasLoaded(true);
     } else {
       Axios.get(`/items?search=${search}`).then(response => {
         document.open();
@@ -29,7 +29,7 @@ export default function ItemsList (props) {
       })
     }
     
-  }, []);
+  }, [search]);
 
   const goToDetail = id => {
     setId(id);
@@ -47,7 +47,7 @@ export default function ItemsList (props) {
         <title>{ search || 'Resultados'} en Mercado Libre</title>
       </Helmet>
       <Breadcrumb tags={categories}/>
-      <SearchResults items={items} action={goToDetail}/>
+      <SearchResults items={items} action={goToDetail} hasLoaded={hasLoaded}/>
     </div>
   )
 }

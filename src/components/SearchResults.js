@@ -1,6 +1,15 @@
 import React from 'react'
 
-export default function SearchResults({ items, action }) {
+export default function SearchResults({ items, action, hasLoaded }) {
+
+  if (!items.length && hasLoaded) {
+    return (
+      <div className="item-not-found">
+        No se encontraron productos relacionados a tu búsqueda
+      </div>
+    )
+  }
+  
   return (
     <div className="items-list">
       {

@@ -42,7 +42,7 @@ const getItems = async query => {
         }
       })
     ),
-    categories: data.filters[0].values[0].path_from_root.map(el => el.name)
+    categories: (data.filters && data.filters[0] && data.filters[0].values && data.filters[0].values[0] && data.filters[0].values[0].path_from_root && data.filters[0].values[0].path_from_root.map(el => el.name)) || []
   }
 
 };
@@ -89,5 +89,10 @@ const getItemDetail = id => {
 
     })
     
+  })
+  .catch(() => {
+    return {
+      item: false
+    };
   })
 }

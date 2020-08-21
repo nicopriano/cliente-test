@@ -5,9 +5,10 @@ import Breadcrumb from '../components/Breadcrumb';
 import { Helmet } from 'react-helmet';
 import Axios from 'axios';
 
-export default function ItemDetail(props) {
+export default function ItemDetail() {
 
   const [item, setItem] = useState(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -15,8 +16,7 @@ export default function ItemDetail(props) {
     if(window.__ROUTE_DATA__) {
       setItem(window.__ROUTE_DATA__.item)
       delete window.__ROUTE_DATA__;
-    } else if (props.staticContext && props.staticContext.data) {
-      setItem(props.staticContext.data.item);
+      setHasLoaded(true);
     } else {
       Axios.get(`/items/${id}`).then(response => {
         document.open();
@@ -25,10 +25,16 @@ export default function ItemDetail(props) {
       })
     }
 
-  }, [])
+  }, [id])
+
+  if (!hasLoaded) {
+    return null
+  }
   
   return !item ? 
-    <div></div> : 
+    <div className="item-not-found">
+      No se encontro la publicación
+    </div> : 
     <div className="item-detail-container">
       <Helmet>
         <title>{item.title} - Test Mercado Libre</title>
