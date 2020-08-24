@@ -21,8 +21,12 @@ La aplicacion corre bajo Node con ExpressJS. La aplicacion web funciona con **SS
 
 La biblioteca / framework utilizada para el Font-End es `React 16`. Los componentes permiten reutilizar contenido y los hooks serán utiles al momento de modularizar funcionalidades.
 
-Se agregó `React Helmet` para la futura inyección de tags Meta en la cabecera y la modificacion del titulo del sitio segun su direccion.
+Se agregó `react-helmet` para la futura inyección de tags Meta en la cabecera y la modificacion del titulo del sitio segun su direccion.
 
 El módulo `serialize-javascript` es similar a la funcion JSON.stringify, permite obtener la informacion de los gateway y empaquetarla junto con la aplicación. Esto evita que el cliente haga dos request y mejora el tiempo de respuesta.
 
 El proyecto cuenta con un archivo Dockerfile para asegurar consistencia a la hora de probarlo.
+
+### Navegación
+
+Se utilizó `react-router-dom` para la navegacion en la SPA. Del lado del Front-End usé el router `BrowserRouter` y `StaticRouter` para el Back-End. Debido a ciertas instancias en las que el router catchea la navegacion sin sincronizarse con el servidor (ir para atras o adelante en el historial)  se valida el contenido de `window.__ROUTE_DATA__` y en caso de no existir se recarga la página. 
